@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  # CONTAINER C: Mesaj Kuyruğu (Postane)
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: interpol_rabbitmq
+    ports:
+      - "5672:5672"   # Python un RabbitMQ'ya veri göndereceği port
+      - "15672:15672" # Kuyruğu görsel olarak izlemek için yönetim paneli portu
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
