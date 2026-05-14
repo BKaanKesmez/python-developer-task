@@ -11,3 +11,29 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+
+
+  # CONTAINER A: Veri Çeken Üretici
+  producer:
+    build: .
+    container_name: interpol_producer
+    command: python veri_cek.py
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      PERIYOT_SANIYESI: 30
+
+
+  # CONTAINER B: WEB Sunucusu ve Tüketici
+  web_server:
+    build: .
+    container_name: interpol_web
+    command: python sunucu.py
+    depends_on:
+      - rabbitmq
+    ports:
+      - "5000:5000" # Web sunucusunun çalışacağı port
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      WEB_PORT: 5000    
