@@ -21,7 +21,8 @@ graph TD
         C -->|Yeni/Güncel Veri| DB[(SQLite DB)]
         DB -->|Kayıtları Okuma| F[Flask Web Sunucusu]
         F -->|Render| UI[HTML Arayüzü]
-    end ```
+    end 
+```
 
 
 Bileşenlerin Görevleri:
