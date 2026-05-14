@@ -63,7 +63,7 @@ Proje tamamen Dockerize edilmiştir. Çalıştırmak için bilgisayarınızda Do
 
 1.Projeyi bilgisayarınıza klonlayın:
 ```bash
-git clone [https://github.com/kullanici-adiniz/python-developer-task.git](https://github.com/kullanici-adiniz/python-developer-task.git)
+git clone [https://github.com/BKaanKesmez/python-developer-task.git](https://github.com/BKaanKesmez/python-developer-task.git)
 cd python-developer-task
 ```
 
