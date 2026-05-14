@@ -62,11 +62,15 @@ WEB_PORT: Web arayüzünün çalışacağı port.
 Proje tamamen Dockerize edilmiştir. Çalıştırmak için bilgisayarınızda Docker'ın kurulu olması yeterlidir.
 
 1.Projeyi bilgisayarınıza klonlayın:
+```bash
 git clone [https://github.com/kullanici-adiniz/python-developer-task.git](https://github.com/kullanici-adiniz/python-developer-task.git)
 cd python-developer-task
+```
 
 2.Docker-Compose ile tüm mimariyi ayağa kaldırın:
+```bash
 docker-compose up --build -d
+```
 
 3.Servislere erişin:
 
@@ -74,9 +78,12 @@ Web Arayüzü (Canlı Takip): http://localhost:5000
 
 RabbitMQ Yönetim Paneli: http://localhost:15672 (Kullanıcı: guest, Şifre: guest)
 
+
 🛑 Sistemi Durdurma
 Sistemi kapatmak ve container'ları temizlemek için:
+```bash
 docker-compose down
+```
 
 
 Geliştirici: Buğra Kaan Kesmez
