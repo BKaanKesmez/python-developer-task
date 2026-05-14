@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Interpol Takip Sistemi</title>
+    <meta http-equiv="refresh" content="15">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f9;}
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: white;}
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #2c3e50; color: white; }
+        .alarm { color: white; background-color: #e74c3c; font-weight: bold; padding: 4px 8px; border-radius: 4px;}
+        .normal { color: #27ae60; font-weight: bold;}
+    </style>
+</head>
+<body>
+    <h2>Interpol Kırmızı Bülten Canlı Takip</h2>
+    <p>Bu sayfa kuyruktan gelen verilerle otomatik olarak güncellenmektedir.</p>
+
+    <table>
+        <tr>
+            <th>Kayıt Zamanı</th>
+            <th>Aranan Sayısı</th>
+            <th>Durum / Alarm</th>
+        </tr>
+        {% for kayit in kayitlar %}
+        <tr>
+            <td>{{ kayit[1] }}</td>
+            <td><strong>{{ kayit[0] }}</strong></td>
+            <td>
+                {% if 'ALARM' in kayit[2] %}
+                    <span class="alarm">{{ kayit[2] }}</span>
+                {% else %}
+                    <span class="normal">{{ kayit[2] }}</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
