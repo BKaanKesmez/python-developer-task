@@ -73,16 +73,30 @@ class QueueConsumer:
         self.db_manager.kaydet(toplam_sayi) 
 
     def dinlemeye_basla(self):
-        try:
-            connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host))
-            channel = connection.channel()
-            channel.queue_declare(queue=self.queue_name , durable=True)
-            
-            print(f"[*] Web sunucusu arka planda '{self.queue_name}' kuyruğunu dinliyor...") 
-            channel.basic_consume(queue=self.queue_name, on_message_callback=self._mesaj_geldi_tetikleyicisi, auto_ack=True)
-            channel.start_consuming()
-        except Exception as e:
-            print(f"Kuyruk bağlantı hatası: {e}")
+        import time
+        import pika
+        
+        while True:
+            try:
+                # 1. RabbitMQ'ya bağlanmayı dene
+                print(f"[*] RabbitMQ'ya bağlanılmaya çalışılıyor: {self.host}")
+                connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host))
+                channel = connection.channel()
+                channel.queue_declare(queue=self.queue_name, durable=True)
+                
+                # 2. Bağlantı başarılı olursa döngü burada dinlemede kalır
+                print(f"[*] BAĞLANTI BAŞARILI! Web sunucusu '{self.queue_name}' kuyruğunu dinliyor...")
+                channel.basic_consume(queue=self.queue_name, on_message_callback=self._mesaj_geldi_tetikleyicisi, auto_ack=True)
+                channel.start_consuming()
+                
+            except pika.exceptions.AMQPConnectionError:
+                # RabbitMQ kapalıysa veya hazır değilse buraya düşer
+                print("[-] RabbitMQ henüz uyanmadı, 3 saniye bekleniyor...")
+                time.sleep(3)
+            except Exception as e:
+                # Diğer beklenmeyen hatalar için
+                print(f"[-] Beklenmeyen Hata: {e}")
+                time.sleep(3)
 
 # ---------------------------------------------------------
 # 3. SINIF: WEB SUNUCUSU (WebServer)
